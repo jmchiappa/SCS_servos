@@ -20,19 +20,31 @@ SCSCL::SCSCL(u8 End, u8 Level):SCSerial(End, Level)
 {
 }
 
+int SCSCL::WriteTime(u8 ID, u16 Time)
+{
+	u8 bBuf[2];
+	Host2SCS(bBuf+0, bBuf+1, Time);
+	genWrite(ID, SCSCL_GOAL_TIME_L, bBuf, 2);
+	Serial.println(readWord(ID, SCSCL_GOAL_TIME_L),DEC);
+	return 0;
+}
+
 int SCSCL::WriteSpeed(u8 ID, u16 Speed)
 {
 	u8 bBuf[2];
 	Host2SCS(bBuf+0, bBuf+1, Speed);
-	return genWrite(ID, SCSCL_GOAL_SPEED_L, bBuf, 2);
+	genWrite(ID, SCSCL_GOAL_SPEED_L, bBuf, 2);
+	Serial.println(readWord(ID, SCSCL_GOAL_SPEED_L),DEC);
+	return 0;
 }
 
 int SCSCL::WritePos(u8 ID, u16 Position)
 {
-	u8 bBuf[4];
+	u8 bBuf[2];
 	Host2SCS(bBuf+0, bBuf+1, Position);
-	Host2SCS(bBuf+0, bBuf+1, 0);
-	return genWrite(ID, SCSCL_GOAL_POSITION_L, bBuf, 4);
+	genWrite(ID, SCSCL_GOAL_POSITION_L, bBuf, 2);
+	Serial.println(readWord(ID, SCSCL_GOAL_SPEED_L),DEC);
+	return 0;
 }
 
 int SCSCL::WritePos(u8 ID, u16 Position, u16 Time, u16 Speed)

@@ -54,9 +54,9 @@ public:
 	SCSCL();
 	SCSCL(u8 End);
 	SCSCL(u8 End, u8 Level);
-	virtual int WriteSpeed(u8 ID, u16 Speed);
-	virtual int WriteTime(u8 ID, u16 Time);
-	virtual int WritePos(u8 ID, u16 Position);
+	virtual int WriteSpeed(u8 ID, u16 Speed, bool async = false);
+	virtual int WriteTime(u8 ID, u16 Time,bool async = false);
+	virtual int WritePos(u8 ID, u16 Position, bool async = false);
 	virtual int WritePos(u8 ID, u16 Position, u16 Time, u16 Speed);//普通写单个舵机位置指令
 	virtual int RegWritePos(u8 ID, u16 Position, u16 Time, u16 Speed = 0);//异步写单个舵机位置指令(RegWriteAction生效)
 	virtual void SyncWritePos(u8 ID[], u8 IDN, u16 Position[], u16 Time[], u16 Speed[]);//同步写多个舵机位置指令

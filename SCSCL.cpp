@@ -20,25 +20,35 @@ SCSCL::SCSCL(u8 End, u8 Level):SCSerial(End, Level)
 {
 }
 
-int SCSCL::WriteTime(u8 ID, u16 Time)
+int SCSCL::WriteTime(u8 ID, u16 Time,bool async)
 {
 	u8 bBuf[2];
 	Host2SCS(bBuf+0, bBuf+1, Time);
-	return genWrite(ID, SCSCL_GOAL_TIME_L, bBuf, 2);
+	if(async)
+		return regWrite(ID, SCSCL_GOAL_TIME_L, bBuf, 2);
+	else
+		return genWrite(ID, SCSCL_GOAL_TIME_L, bBuf, 2);
+
 }
 
-int SCSCL::WriteSpeed(u8 ID, u16 Speed)
+int SCSCL::WriteSpeed(u8 ID, u16 Speed,bool async)
 {
 	u8 bBuf[2];
 	Host2SCS(bBuf+0, bBuf+1, Speed);
-	return genWrite(ID, SCSCL_GOAL_SPEED_L, bBuf, 2);
+	if(async)
+		return regWrite(ID, SCSCL_GOAL_SPEED_L, bBuf, 2);
+	else
+		return genWrite(ID, SCSCL_GOAL_SPEED_L, bBuf, 2);
 }
 
-int SCSCL::WritePos(u8 ID, u16 Position)
+int SCSCL::WritePos(u8 ID, u16 Position, bool async)
 {
 	u8 bBuf[2];
 	Host2SCS(bBuf+0, bBuf+1, Position);
-	return genWrite(ID, SCSCL_GOAL_POSITION_L, bBuf, 2);
+	if(async)
+		return regWrite(ID, SCSCL_GOAL_POSITION_L, bBuf, 2);
+	else
+		return genWrite(ID, SCSCL_GOAL_POSITION_L, bBuf, 2);
 }
 
 int SCSCL::WritePos(u8 ID, u16 Position, u16 Time, u16 Speed)
